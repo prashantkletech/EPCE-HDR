@@ -6,16 +6,16 @@ import data_io as io
 import cv2
 import metrics as m
 
-ref_dir = "/home/jiaqitang/SYS_Full_NTIRE/Val/GT"
-ref_alignratio_dir = '/home/jiaqitang/SYS_Full_NTIRE/Val/alignratio'
+ref_dir = "/content/EPCE-HDR/SYS_Full_NTIRE/Val/GT"
+ref_alignratio_dir = '/content/EPCE-HDR/SYS_Full_NTIRE/Val/alignratio'
 # res_dir = './Visualization/medium'
 # res_alignratio_dir = ref_alignratio_dir
-res_dir = '/home/jiaqitang/Final_Ours/results/Ours-differnettonemapping/input'
-res_alignratio_dir = '/home/jiaqitang/Final_Ours/results/Ours-differnettonemapping/restore'
+res_dir = '/content/EPCE-HDR/results/Ours-Original/input'
+res_alignratio_dir = '/content/EPCE-HDR/results/Ours-Original/restore'
 
-ref_output_dir = '/home/jiaqitang/Final_Ours/Visualization/tone_mapped_gt'
+ref_output_dir = '/content/EPCE-HDR/Visualization/tone_mapped_gt'
 # res_output_dir = './Validation/tone_mapped_medium'
-res_output_dir = '/home/jiaqitang/Final_Ours/Visualization/tone_mapped_results_differnettonemapping'
+res_output_dir = '/content/EPCE-HDR/final_result'
 
 if not osp.exists(ref_output_dir):
     os.mkdir(ref_output_dir)

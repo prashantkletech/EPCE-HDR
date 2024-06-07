@@ -8,7 +8,7 @@ datasets:
   test_1:  # the 1st test dataset
     name: 000_Valid_SingleFrame_FirstStage
     mode: LQ_condition
-    dataroot_LQ: /remote-home/share/jiaqi2/HDR/home/jiaqitang/Real_Valset_1024/image_gamma
+    dataroot_LQ: /content/EPCE-HDR/codes/dataSet/MultiTMCurvesDataset/LDR/Val_testreal
     condition: image
     
 #### network structures
@@ -22,5 +22,5 @@ network_G:
 #### path
 path:
   root: ./
-  pretrain_model_G: /remote-home/share/jiaqi2/HDR/home/jiaqitang/Final_Ours/weight/240000_G.pth
+  pretrain_model_G: /content/EPCE-HDR/codes/pretrained_model/Pretrained_HDR.pth
 

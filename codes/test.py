@@ -1,4 +1,6 @@
 import os
+import torch
+import yaml
 import os.path as osp
 import logging
 import time
@@ -15,7 +17,7 @@ import numpy as np
 #### options
 parser = argparse.ArgumentParser()
 parser.add_argument('-opt', type=str, required=False, help='Path to options YMAL file.',
-                    default="/home/jiaqitang/Final_Ours/codes/options/test/test_HDRUNet.yml")
+                    default="/content/EPCE-HDR/codes/options/test/test.yml")
 opt = option.parse(parser.parse_args().opt, is_train=False)
 opt = option.dict_to_nonedict(opt)
 
@@ -27,6 +29,9 @@ util.setup_logger('base', opt['path']['log'], 'test_' + opt['name'], level=loggi
 logger = logging.getLogger('base')
 logger.info(option.dict2str(opt))
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(f"Using device: {device}")
+
 #### Create test dataset and dataloader
 test_loaders = []
 for phase, dataset_opt in sorted(opt['datasets'].items()):
@@ -35,7 +40,13 @@ for phase, dataset_opt in sorted(opt['datasets'].items()):
     logger.info('Number of test images in [{:s}]: {:d}'.format(dataset_opt['name'], len(test_set)))
     test_loaders.append(test_loader)
 
+print("\n*****************************************\n")
+print(opt,0)
+print("\n*****************************************\n")
 model = create_model(opt,0)
+print("\n*****************************************\n")
+print(model)
+print("\n*****************************************\n")
 for test_loader in test_loaders:
     #test_set_name = test_loader.dataset.opt['name']
     #logger.info('\nTesting [{:s}]...'.format(test_set_name))
@@ -49,13 +60,18 @@ for test_loader in test_loaders:
 
     test_results = OrderedDict()
     test_results['psnr'] = []
-
+    flag = 0
     for data in test_loader:
         need_GT = False if test_loader.dataset.opt['dataroot_GT'] is None else True
         model.feed_data(data, need_GT=need_GT)
         img_path = data['GT_path'][0] if need_GT else data['LQ_path'][0]
         img_name = osp.splitext(osp.basename(img_path))[0]
-
+        if flag ==0:
+            
+            print("\n*****************************************\n")
+            print(f"Image saved to {img_name}")
+            flag = flag+1
+            print("\n*****************************************\n")
         model.test()
         visuals = model.get_current_visuals(need_GT=need_GT)
 
